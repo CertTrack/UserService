@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: userservice  # Ім'я Deployment
+spec:
+  replicas: 3  # Кількість реплік
+  selector:
+    matchLabels:
+      app: userservice  # Мітка для вибору подів
+  template:
+    metadata:
+      labels:
+        app: userservice  # Мітка, яка буде призначена створеним подам
+    spec:
+      containers:
+      - name: userservice  # Ім'я контейнера
+        image: dmytro314159/userservice:latest  # Docker образ
+        resources:
+          limits:
+            memory: "512Mi"  # Ліміт на використання пам'яті
+            cpu: "500m"  # Ліміт на використання CPU
+        ports:
+        - containerPort: 8081  # Порт, на якому додаток слухає всередині контейнера
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: userservice  # Ім'я Service
+spec:
+  selector:
+    app: userservice  # Вибирає поди з міткою app=userservice
+  ports:
+  - port: 8081  # Порт, на якому служба буде доступна
+    targetPort: 8081  # Порт, на якому слухає контейнер
