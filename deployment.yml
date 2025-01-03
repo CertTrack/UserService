@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: userservice  # Ім'я Deployment
 spec:
-  replicas: 3  # Кількість реплік
+  #replicas: 3  # Кількість реплік
   selector:
     matchLabels:
       app: userservice  # Мітка для вибору подів
