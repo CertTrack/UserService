@@ -1,5 +1,7 @@
 package com.certTrack.UserService.Service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.certTrack.UserService.Entity.Role;
@@ -18,5 +20,13 @@ public class UserService {
 	public void saveUser(User user) {
 		user.setRole(Role.STUDENT);
 		repo.save(user);
+	}
+
+	public List<User> findAll() {
+		return repo.findAll();
+	}
+
+	public User findById(int id) {
+		return repo.findById(id).get();
 	} 
 }
