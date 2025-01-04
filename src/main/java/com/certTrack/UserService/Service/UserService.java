@@ -18,7 +18,7 @@ public class UserService {
 	}
 	
 	public void saveUser(User user) {
-		user.setRole(Role.STUDENT);
+		user.setRole(Role.USER);
 		repo.save(user);
 	}
 
