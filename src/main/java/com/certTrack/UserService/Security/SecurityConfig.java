@@ -38,7 +38,7 @@ public class SecurityConfig {
 			.securityMatcher("/**")			//за якими посиланнями працює секюріті
 			.authorizeHttpRequests(			//дозволяємо доступ всім??
 					(registry) -> registry
-						.requestMatchers("/").permitAll()
+						.requestMatchers("/users/").permitAll()
 						.requestMatchers("/auth/login").permitAll()
 						.requestMatchers("/users/register").permitAll()
 						.requestMatchers("/admin/**").hasRole("ADMIN")
