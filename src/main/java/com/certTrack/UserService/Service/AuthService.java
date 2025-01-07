@@ -1,18 +1,16 @@
 package com.certTrack.UserService.Service;
 
-
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import com.certTrack.UserService.Config.JWTIssuer;
-import com.certTrack.UserService.Config.UserPrincipal;
+import com.certTrack.UserService.Security.JWTIssuer;
+import com.certTrack.UserService.Security.UserPrincipal;
 import com.certTrack.UserService.model.LoginResponse;
 
 import lombok.RequiredArgsConstructor;
-
 @Service
 @RequiredArgsConstructor
 public class AuthService {

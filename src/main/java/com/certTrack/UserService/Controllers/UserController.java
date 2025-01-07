@@ -1,62 +1,41 @@
 package com.certTrack.UserService.Controllers;
 
-import java.util.List;
-
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.certTrack.UserService.Entity.User;
+import com.certTrack.UserService.Security.UserPrincipal;
 import com.certTrack.UserService.Service.UserService;
 import com.certTrack.UserService.model.LoginRequest;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/users")
 public class UserController {
+	private final UserService userService;
 	
-	
-	private final UserService service;
-	
-	public UserController(UserService service) {
-		this.service = service;
-	}
-	
-	@RequestMapping("/login")
-	public ResponseEntity<User> login(@RequestBody LoginRequest loginRequest) {
-		return ResponseEntity.ok(service.saveUser(loginRequest.getEmail(), loginRequest.getPassword()));
-	}
-//	Логін користувача
-//
-//    Метод: POST
-//    Шлях: /users/login
-//    Опис: Авторизація користувача.
-//    Тіло запиту:
-//
-//{
-//  "email": "string",
-//  "password": "string"
-//}
-//
-//Відповідь:
-//
-//{
-//  "token": "jwt_token",
-//  "message": "Login successful"
-//}
-	/*
-	 * also delete
-	 */
-
-	
-	@GetMapping("/all")
-	public List<User> findAllUsers() {
-		return service.findAll();
+	@PostMapping("/register")
+	public String register(@RequestBody @Validated LoginRequest loginRequest) {
+		userService.saveUser(loginRequest.getEmail(), loginRequest.getPassword());
+		return "user succesfully register";
 	}
 	@GetMapping("/")
-	public User findById(@RequestParam int id) {
-		return service.findById(id);
+	public String start() {
+		return "Bla Bla bLa";
+	}
+	@GetMapping("/secured")
+	public String authTest(@AuthenticationPrincipal UserPrincipal principal) { 
+		return "secuder ID: "+principal.getUserId()+principal.getEmail();
+	}
+	
+	@GetMapping("/admin")
+	public String adminendpoint(@AuthenticationPrincipal UserPrincipal principal) {
+		return "you are an admin";
 	}
 }

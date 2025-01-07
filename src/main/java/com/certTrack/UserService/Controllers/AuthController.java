@@ -1,7 +1,5 @@
 package com.certTrack.UserService.Controllers;
 
-
-
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,6 +10,7 @@ import com.certTrack.UserService.model.LoginRequest;
 import com.certTrack.UserService.model.LoginResponse;
 
 import lombok.RequiredArgsConstructor;
+
 
 @RestController
 @RequiredArgsConstructor
@@ -24,5 +23,4 @@ public class AuthController {
 		return authService.attemptlogin(loginRequest.getEmail(), loginRequest.getPassword());
 	}
 }
-	
 	

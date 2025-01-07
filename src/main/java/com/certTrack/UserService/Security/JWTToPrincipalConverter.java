@@ -1,4 +1,4 @@
-package com.certTrack.UserService.Config;
+package com.certTrack.UserService.Security;
 
 import java.util.List;
 
@@ -6,6 +6,9 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
+
+
+
 
 @Component
 public class JWTToPrincipalConverter {

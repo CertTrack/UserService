@@ -1,4 +1,4 @@
-package com.certTrack.UserService.Config;
+package com.certTrack.UserService.Security;
 
 import java.util.List;
 
@@ -12,7 +12,6 @@ import com.certTrack.UserService.Entity.User;
 import com.certTrack.UserService.Service.UserService;
 
 import lombok.RequiredArgsConstructor;
-
 @Component
 @RequiredArgsConstructor
 public class CustomUserDetailService implements UserDetailsService{

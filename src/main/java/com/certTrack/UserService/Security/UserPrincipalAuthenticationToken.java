@@ -1,4 +1,4 @@
-package com.certTrack.UserService.Config;
+package com.certTrack.UserService.Security;
 
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 
@@ -15,13 +15,11 @@ public class UserPrincipalAuthenticationToken extends AbstractAuthenticationToke
 
 	@Override
 	public Object getCredentials() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public UserPrincipal getPrincipal() {
-		// TODO Auto-generated method stub
 		return principal;
 	}
 

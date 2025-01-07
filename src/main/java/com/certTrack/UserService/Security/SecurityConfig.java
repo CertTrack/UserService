@@ -1,8 +1,9 @@
-package com.certTrack.UserService.Config;
+package com.certTrack.UserService.Security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -22,6 +23,7 @@ public class SecurityConfig {
 	@Autowired
 	private JWTAuthenticationFilter filter;
 	
+	@Lazy
 	@Autowired
 	private CustomUserDetailService customUserDetailService;
 	
@@ -38,7 +40,8 @@ public class SecurityConfig {
 					(registry) -> registry
 						.requestMatchers("/").permitAll()
 						.requestMatchers("/auth/login").permitAll()
-						.requestMatchers("/admin/**").hasRole("ADMIN")
+						.requestMatchers("/users/register").permitAll()
+						.requestMatchers("/users/admin/**").hasRole("ADMIN")
 						.anyRequest().authenticated()
 					);
 		return http.build();

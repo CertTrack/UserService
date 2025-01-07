@@ -1,4 +1,4 @@
-package com.certTrack.UserService.Config;
+package com.certTrack.UserService.Security;
 
 import java.util.Collection;
 
@@ -21,14 +21,17 @@ public class UserPrincipal implements UserDetails{
 	private Collection<? extends GrantedAuthority> authorities;
 	@JsonIgnore
 	private String password;
+	
 	@Override
 	public String getUsername() {
 		return email;
 	}
+	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return authorities;
 	}
+	
 	@Override
 	public String getPassword() {
 		return password;

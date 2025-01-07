@@ -1,4 +1,4 @@
-package com.certTrack.UserService.Config;
+package com.certTrack.UserService.Security;
 
 import org.springframework.stereotype.Component;
 
