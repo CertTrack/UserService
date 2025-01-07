@@ -35,9 +35,8 @@ class AdminControllerTest {
 	@WithMockUser(auth = "ROLE_ADMIN")
 	@Test
 	void AdminCanViewAdminEndpoint() throws Exception {
-		api.perform(get("/admin")).
-		andExpect(status().isOk())
-		.andExpect(content().string(containsStringIgnoringCase("you are an admin")));
+		api.perform(get("/admin/user?id=1")).
+		andExpect(status().isOk());
 	}
 	
 

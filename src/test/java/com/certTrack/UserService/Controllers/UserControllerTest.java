@@ -33,7 +33,6 @@ class UserControllerTest {
 	}
 	
 	
-	///////////////
 	@Test
 	@WithMockUser
 	void logedInshouldSeeSecuredEndpoint() throws Exception {
@@ -42,7 +41,6 @@ class UserControllerTest {
 		.andExpect(content().string(containsStringIgnoringCase("secuder ID: ")));
 	}
 	
-	///////////////
 	@Test
 	@WithMockUser
 	void loged_In_should_See_His_ID_In_Secured_Endpoint() throws Exception {
