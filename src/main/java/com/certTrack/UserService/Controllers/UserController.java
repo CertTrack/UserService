@@ -20,22 +20,20 @@ import lombok.RequiredArgsConstructor;
 public class UserController {
 	private final UserService userService;
 	
+	@GetMapping("/")
+	public String start() {
+		return "test endpoint";
+	}
+
 	@PostMapping("/register")
 	public String register(@RequestBody @Validated LoginRequest loginRequest) {
 		userService.saveUser(loginRequest.getEmail(), loginRequest.getPassword());
 		return "user succesfully register";
 	}
-	@GetMapping("/")
-	public String start() {
-		return "Bla Bla bLa";
-	}
+	
+	//endpoint for test is user authorized
 	@GetMapping("/secured")
 	public String authTest(@AuthenticationPrincipal UserPrincipal principal) { 
-		return "secuder ID: "+principal.getUserId()+principal.getEmail();
-	}
-	
-	@GetMapping("/admin")
-	public String adminendpoint(@AuthenticationPrincipal UserPrincipal principal) {
-		return "you are an admin";
+		return "secuder ID: "+principal.getUserId()+" " +principal.getEmail();
 	}
 }

@@ -41,12 +41,13 @@ public class SecurityConfig {
 						.requestMatchers("/").permitAll()
 						.requestMatchers("/auth/login").permitAll()
 						.requestMatchers("/users/register").permitAll()
-						.requestMatchers("/users/admin/**").hasRole("ADMIN")
+						.requestMatchers("/admin/**").hasRole("ADMIN")
 						.anyRequest().authenticated()
 					);
 		return http.build();
 		
 	}
+	
 	
 	@Bean
 	public PasswordEncoder encoder() {
