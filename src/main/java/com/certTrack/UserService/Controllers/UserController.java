@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.certTrack.UserService.Entity.User;
 import com.certTrack.UserService.Security.UserPrincipal;
 import com.certTrack.UserService.Service.UserService;
 import com.certTrack.UserService.model.LoginRequest;
@@ -25,6 +27,11 @@ public class UserController {
 	@GetMapping("/")
 	public String start() {
 		return "USER SERVICE";
+	}
+	
+	@GetMapping("/user")
+	public User getUser(@RequestParam Long id) {
+		return userService.findById(id);
 	}
 
 	@PostMapping("/register")

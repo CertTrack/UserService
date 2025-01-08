@@ -33,7 +33,7 @@ class AdminControllerTest {
 	@WithMockUser(auth = "ROLE_ADMIN")
 	@Test
 	void AdminCanViewAdminEndpoint() throws Exception {
-		api.perform(get("/admin/user?id=1")).
+		api.perform(get("/admin/all")).
 		andExpect(status().isOk());
 	}
 }

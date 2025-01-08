@@ -19,11 +19,6 @@ public class AdminController {
 	
 	private final UserService userService;
 
-	
-	@GetMapping("/user")
-	public User getUser(@RequestParam Long id) {
-		return userService.findById(id);
-	}
 	@GetMapping("/all")
 	public List<User> getAllUsers() {
 		return userService.findAll();
