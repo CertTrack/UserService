@@ -82,6 +82,8 @@ class UserControllerTest {
 
 	@Test
 	void Not_Authorized_User_CanNOT_See_Information_About_User_By_Id() throws Exception {
-		api.perform(get("/users/user?id=1")).andExpect(status().is4xxClientError());
+		api.perform(get("/users/user?id=1"))
+			.andExpect(status()
+			.is4xxClientError());
 	}
 }
