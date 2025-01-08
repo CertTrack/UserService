@@ -1,8 +1,6 @@
 package com.certTrack.UserService.Controllers;
 
-import static org.hamcrest.Matchers.containsStringIgnoringCase;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.jupiter.api.Test;
@@ -38,6 +36,4 @@ class AdminControllerTest {
 		api.perform(get("/admin/user?id=1")).
 		andExpect(status().isOk());
 	}
-	
-
 }

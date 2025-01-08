@@ -13,7 +13,9 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Component
 public class JWTAuthenticationFilter extends OncePerRequestFilter {
 
@@ -25,25 +27,23 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
-		System.out.println("doFilterInternal");
+		log.info("!!!Start doFilterInternal");
 		extractTokenFromRequest(request)
 				.map(decoder::decode)
 				.map(converter::convert)
 				.map(UserPrincipalAuthenticationToken::new)
 				.ifPresent(authentication -> SecurityContextHolder.getContext().setAuthentication(authentication));
-		System.out.println("succes doFilterInternal in filter");
+		log.info("!!!succes doFilterInternal in filter");
 		filterChain.doFilter(request, response);
 	}
 
 	private Optional<String> extractTokenFromRequest(HttpServletRequest request) {
 		var token = request.getHeader("Authorization");
 		if (StringUtils.hasText(token) && token.startsWith("Bearer ")) {
-			System.out.println("filter for bearer succes");
-			System.out.println(token);
+			log.info("filter for bearer succes token: " + token);
 			return Optional.of(token.substring(7));
 		}
-		System.out.println(token);
-		System.out.println("filter for bearer error");
+		log.info("filter for bearer error token: " + token);
 		return Optional.empty();
 	}
 

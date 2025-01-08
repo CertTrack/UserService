@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 
-//видавач jwt
 @Component
 public class JWTIssuer {
 	

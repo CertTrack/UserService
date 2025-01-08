@@ -8,8 +8,6 @@ import org.springframework.context.annotation.Configuration;
 import lombok.Data;
 
 
-//просто передаємо кодове слово із пропертів
-
 @Data
 @Configuration
 @ConfigurationProperties("security.jwt")

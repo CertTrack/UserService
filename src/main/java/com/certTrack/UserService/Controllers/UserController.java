@@ -1,5 +1,6 @@
 package com.certTrack.UserService.Controllers;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.certTrack.UserService.Security.UserPrincipal;
 import com.certTrack.UserService.Service.UserService;
 import com.certTrack.UserService.model.LoginRequest;
+import com.certTrack.UserService.model.ResponseMessage;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,14 +24,13 @@ public class UserController {
 	
 	@GetMapping("/")
 	public String start() {
-		return "test endpoint";
+		return "USER SERVICE";
 	}
 
 	@PostMapping("/register")
-	public String register(@RequestBody @Validated LoginRequest loginRequest) {
-		userService.saveUser(loginRequest.getEmail(), loginRequest.getPassword());
-		return "user succesfully register";
-	}
+	public ResponseEntity<ResponseMessage> register(@RequestBody @Validated LoginRequest loginRequest) {
+		String message = userService.saveUser(loginRequest.getEmail(), loginRequest.getPassword());
+	    return ResponseEntity.ok(new ResponseMessage(message));	}
 	
 	//endpoint for test is user authorized
 	@GetMapping("/secured")

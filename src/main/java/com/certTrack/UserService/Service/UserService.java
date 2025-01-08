@@ -23,9 +23,13 @@ public class UserService {
 		return userRepository.findByEmail(email);
 	}
 
-	public User saveUser(String email, String password) {
-		return userRepository
+	public String saveUser(String email, String password) {
+		if(userRepository.findByEmail(email).isPresent()) {
+			return "This user is already present!";
+		}
+		userRepository
 				.save(User.builder().email(email).password(passwordEncoder.encode(password)).role("ROLE_USER").build());
+		return "user successfully registered";
 	}
 
 	public List<User> findAll() {

@@ -34,9 +34,9 @@ public class SecurityConfig {
 			.cors(CorsConfigurer::disable)
 			.csrf(AbstractHttpConfigurer::disable)
 			.sessionManagement(sessionManagement->sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-			.formLogin(formLogin->formLogin.disable())		//прибираємо форму для логіну
-			.securityMatcher("/**")			//за якими посиланнями працює секюріті
-			.authorizeHttpRequests(			//дозволяємо доступ всім??
+			.formLogin(formLogin->formLogin.disable())
+			.securityMatcher("/**")
+			.authorizeHttpRequests(
 					(registry) -> registry
 						.requestMatchers("/users/").permitAll()
 						.requestMatchers("/auth/login").permitAll()

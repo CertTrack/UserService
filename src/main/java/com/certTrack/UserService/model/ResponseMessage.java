@@ -1,4 +1,4 @@
-package com.certTrack.UserService.dto;
+package com.certTrack.UserService.model;
 
 public class ResponseMessage {
 
