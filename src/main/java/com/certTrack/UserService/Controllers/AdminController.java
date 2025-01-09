@@ -2,9 +2,8 @@ package com.certTrack.UserService.Controllers;
 
 import java.util.List;
 
-import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,9 +26,9 @@ public class AdminController {
 		return userService.findAll();
 	}
 	
-	@PostMapping("/delete")
-	public ResponseEntity<ResponseMessage> deleteUser(@RequestParam Long id) {
-		userService.delete(id);
-		return ResponseEntity.ok(new ResponseMessage("User successfully deleted"));
+	@DeleteMapping("/delete")
+	public ResponseMessage deleteUser(@RequestParam Long id) {
+		String message = userService.delete(id);
+		return new ResponseMessage(message);
 	}
 }

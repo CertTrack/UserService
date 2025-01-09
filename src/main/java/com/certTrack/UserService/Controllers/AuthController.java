@@ -23,4 +23,4 @@ public class AuthController {
 		return authService.attemptlogin(loginRequest.getEmail(), loginRequest.getPassword());
 	}
 }
-	
+	 

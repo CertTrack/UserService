@@ -16,7 +16,10 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import com.certTrack.UserService.Entity.User;
+import com.certTrack.UserService.Repository.UserRepository;
 import com.certTrack.UserService.model.LoginRequest;
+import com.certTrack.UserService.model.ResponseMessage;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @AutoConfigureMockMvc
@@ -27,6 +30,9 @@ class UserControllerTest {
 	private MockMvc api;
 	@Autowired
 	private ObjectMapper objectMapper;
+	
+	@Autowired
+	UserRepository repository;
 
 	@Test
 	void anyOneCanViewPublicEndpoint() throws Exception {
@@ -38,32 +44,28 @@ class UserControllerTest {
 	void anyOneCanRegister() throws Exception {
 		LoginRequest loginRequest = new LoginRequest("test@example.com", "password123");
 		String requestJson = objectMapper.writeValueAsString(loginRequest);
-
-		api.perform(post("/users/register").contentType(MediaType.APPLICATION_JSON).content(requestJson))
-				.andExpect(status().isOk()).andExpect(jsonPath("$.message").value("This user is already present!"));
+		
+		ResponseMessage message = new ResponseMessage("This user is already present!");
+		String responseJson = objectMapper.writeValueAsString(message);
+		api.perform(post("/users/register")
+				.contentType(MediaType.APPLICATION_JSON).content(requestJson))
+				.andExpect(status().isOk())
+				.andExpect(content().json(responseJson));
 	}
 
 	@Test
 	void notLogedInshouldnotseesecuredEndpoint() throws Exception {
 		api.perform(get("/secured")).andExpect(status().is4xxClientError());
 	}
-
 	@Test
 	@WithMockUser
-	void logedInshouldSeeSecuredEndpoint() throws Exception {
+	void AuthorizedUserShouldSeeSecuredEndpoint() throws Exception {
 		api.perform(get("/users/secured")).andExpect(status().isOk())
 				.andExpect(content().string(containsStringIgnoringCase("secuder ID: ")));
 	}
 
 	@Test
-	@WithMockUser
-	void loged_In_should_See_His_ID_In_Secured_Endpoint() throws Exception {
-		api.perform(get("/users/secured")).andExpect(status().isOk())
-				.andExpect(content().string(containsStringIgnoringCase("ID")));
-	}
-
-	@Test
-	void while_LoggedIn_shouldReceiveJWT() throws Exception {
+	void whileLoggingInShouldReceiveJWT() throws Exception {
 		LoginRequest loginRequest = new LoginRequest("test@example.com", "password123");
 		String requestJson = objectMapper.writeValueAsString(loginRequest);
 
@@ -74,14 +76,17 @@ class UserControllerTest {
 
 	@WithMockUser
 	@Test
-	void Authorized_User_Can_See_Information_About_User_By_Id() throws Exception {
-		api.perform(get("/users/user?id=1")).andExpect(status().isOk()).andExpect(jsonPath("$.id").value(1))
-				.andExpect(jsonPath("$.email").value("dimatrofimov515@gmail.com"))
-				.andExpect(jsonPath("$.role").value("ROLE_ADMIN"));
+	void AuthorizedUserCanSeeInformationAboutUserById() throws Exception {
+		User user = repository.findById(1L).get();
+		String responseJson = objectMapper.writeValueAsString(user);
+		api.perform(get("/users/user?id=1")
+	            .contentType(MediaType.APPLICATION_JSON))
+	            .andExpect(status().isOk())
+	            .andExpect(content().json(responseJson));
 	}
 
 	@Test
-	void Not_Authorized_User_CanNOT_See_Information_About_User_By_Id() throws Exception {
+	void NotAuthorizedUserCanNOTSeeInformationAboutUserById() throws Exception {
 		api.perform(get("/users/user?id=1"))
 			.andExpect(status()
 			.is4xxClientError());
