@@ -18,6 +18,17 @@ The **User Service** is a key component of our microservices architecture, respo
 - **Auth0 (JWT)**: For secure user authentication.
 
 ---
+## Database Schema
+The progress records are stored in the `progress` table with the following structure:
+
+| Column Name        | Data Type   | Constraints                  |
+|--------------------|-------------|------------------------------|
+| `id`               | Long        | Primary Key                  |
+| `email`            | String      | Not Null                     |
+| `password`         | String      | Not Null                     |
+| `role`             | String      | Not Null                     |
+
+---
 
 ## Endpoints
 
