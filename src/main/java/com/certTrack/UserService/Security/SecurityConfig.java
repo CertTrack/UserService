@@ -36,14 +36,14 @@ public class SecurityConfig {
 			.sessionManagement(sessionManagement->sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 			.formLogin(formLogin->formLogin.disable())
 			.securityMatcher("/**")
-			.authorizeHttpRequests(
+			/*.authorizeHttpRequests(
 					(registry) -> registry
 						.requestMatchers("/users/").permitAll()
 						.requestMatchers("/auth/login").permitAll()
 						.requestMatchers("/users/register").permitAll()
 						.requestMatchers("/admin/**").hasRole("ADMIN")
 						.anyRequest().authenticated()
-					);
+					)*/;
 		return http.build();
 		
 	}
