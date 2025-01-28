@@ -16,6 +16,9 @@ import com.certTrack.UserService.Service.UserService;
 import com.certTrack.UserService.model.LoginRequest;
 import com.certTrack.UserService.model.ResponseMessage;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -24,6 +27,10 @@ import lombok.RequiredArgsConstructor;
 public class UserController {
 	private final UserService userService;
 	
+	
+	@Operation(summary = "test endpoint", security = @SecurityRequirement(name = "basicScheme"), responses = {
+	        @ApiResponse(description = "successful response", responseCode = "200")
+	    })
 	@GetMapping("/")
 	public String start() {
 		return "USER SERVICE";
