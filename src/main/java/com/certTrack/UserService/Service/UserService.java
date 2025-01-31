@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.certTrack.UserService.Entity.User;
 import com.certTrack.UserService.Repository.UserRepository;
+import com.certTrack.UserService.model.ResponseMessage;
 
 import lombok.RequiredArgsConstructor;
 
@@ -45,6 +46,13 @@ public class UserService {
 			return "user successfully deleted";
 		}
 		return "no user by this id";
+	}
+
+	public ResponseMessage setRole(Long userId, String role) {
+		User user = findById(userId);
+		user.setRole(role);
+		userRepository.save(user);
+		return new ResponseMessage("user role successfully updated");
 	}
 
 }

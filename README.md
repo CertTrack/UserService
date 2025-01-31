@@ -1,4 +1,4 @@
-# User Service
+﻿# User Service
 
 The **User Service** is a key component of our microservices architecture, responsible for managing user-related operations, such as registration, authentication, and user data retrieval. This service interacts with a secure database and integrates with other microservices to enable seamless user management and authentication across the application.
 
@@ -18,6 +18,7 @@ The **User Service** is a key component of our microservices architecture, respo
 - **Auth0 (JWT)**: For secure user authentication.
 - **RESTful API Design**: Provides a clean and structured API interface.
 - **Spring Cloud Eureka Client**
+- **Swagger**: For API documentation and testing.
 
 ---
 
@@ -97,6 +98,18 @@ secured ID: 1 example@example.com
 ```json
 {
   "message": "User deleted successfully"
+}
+```
+#### `PUT /admin/updateRole`
+**Description:** Updates user role by user id.
+
+**Request Parameters:**
+- `userId` (Long) - The unique ID of the user to update role.
+- `role` (String) - The role to update usually “ROLE_ADMIN”.
+**Response:**
+```json
+{
+  "message": "User role successfully updated"
 }
 ```
 
