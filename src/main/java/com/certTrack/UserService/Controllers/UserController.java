@@ -42,8 +42,10 @@ public class UserController {
 	}
 
 	@PostMapping("/register")
-	public ResponseEntity<ResponseMessage> register(@RequestBody @Validated LoginRequest loginRequest) {
-		String message = userService.saveUser(loginRequest.getEmail(), loginRequest.getPassword());
+	public ResponseEntity<ResponseMessage> register(@RequestParam String name, 
+													@RequestParam String email,
+													@RequestParam String password) {
+		String message = userService.saveUser(name, email, password);
 	    return ResponseEntity.ok(new ResponseMessage(message));	}
 	
 	//endpoint for test is user authorized

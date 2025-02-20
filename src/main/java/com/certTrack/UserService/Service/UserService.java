@@ -23,12 +23,12 @@ public class UserService {
 		return userRepository.findByEmail(email);
 	}
 
-	public String saveUser(String email, String password) {
+	public String saveUser(String name, String email, String password) {
 		if(userRepository.findByEmail(email).isPresent()) {
 			return "This user is already present!";
 		}
 		userRepository
-				.save(User.builder().email(email).password(passwordEncoder.encode(password)).role("ROLE_USER").build());
+				.save(User.builder().name(name).email(email).password(passwordEncoder.encode(password)).role("ROLE_USER").build());
 		return "user successfully registered";
 	}
 
